@@ -9,7 +9,7 @@ const data = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DATABASE,
   entities: [__dirname + '/src/modules/**/entities/**.ts'],
-  migrations: [__dirname + '/src/shared/migrations/**.ts'],
+  migrations: [__dirname + '/src/core/migrations/**.ts'],
   migrationsRun: false,
 });
 

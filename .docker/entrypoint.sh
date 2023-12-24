@@ -1,6 +1,6 @@
 #!/bin/bash
 npm install 
 
-RUN npx prisma generate
+npm run migrate
 
 npm run start:dev

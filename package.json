@@ -17,7 +17,10 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration": "ts-node-dev ./node_modules/typeorm/cli.js migration:generate -- -d /home/alberto-busy/dev/survey-api/datasource.ts",
+    "migrate": "ts-node-dev ./node_modules/typeorm/cli.js migration:run -- -d /home/alberto-busy/dev/survey-api/datasource.ts",
+    "migrationrevert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -- -d /home/alberto-busy/dev/survey-api/datasource.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -28,7 +31,8 @@
     "dotenv": "^16.3.1",
     "pg": "^8.11.3",
     "typeorm": "^0.3.17",
-    "@nestjs/typeorm": "^10.0.1"
+    "@nestjs/typeorm": "^10.0.1",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

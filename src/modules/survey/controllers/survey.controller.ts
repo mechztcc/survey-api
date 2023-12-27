@@ -5,6 +5,7 @@ import {
   Headers,
   Param,
   Post,
+  Query,
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthorizationInterceptor } from 'src/core/interceptors/authorization/authorization.interceptor';
@@ -14,6 +15,8 @@ import { CreateSurveyService } from '../services/create-survey/create-survey.ser
 import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
 import { ListTredingService } from '../services/list-treding/list-treding.service';
 import { ResultByIdService } from '../services/result-by-id/result-by-id.service';
+import { ListAllService } from '../services/list-all/list-all.service';
+import { log } from 'console';
 
 @Controller('survey')
 export class SurveyController {
@@ -22,6 +25,7 @@ export class SurveyController {
     private readonly voteSurveyService: VoteSurveyService,
     private readonly listTrendingService: ListTredingService,
     private readonly resultByIdService: ResultByIdService,
+    private readonly listAllService: ListAllService,
   ) {}
 
   @Post()
@@ -60,5 +64,18 @@ export class SurveyController {
   @Get('/:id/info')
   async infoBySurvey(@Param('id') id: string) {
     return await this.resultByIdService.execute(Number(id));
+  }
+
+  @Get('/list')
+  async listAll(@Query() query) {
+    const params = {
+      page: query['page'] ?? 1,
+      take: query['take'] ?? 10,
+    };
+    
+    return await this.listAllService.execute({
+      page: Number(params.page),
+      take: Number(params.take),
+    });
   }
 }

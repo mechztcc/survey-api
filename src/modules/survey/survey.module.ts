@@ -8,10 +8,11 @@ import { VoteSurveyService } from './services/vote-survey/vote-survey.service';
 import { UserVote } from '../users/entities/user-vote.entity';
 import { ListTredingService } from './services/list-treding/list-treding.service';
 import { ResultByIdService } from './services/result-by-id/result-by-id.service';
+import { ListAllService } from './services/list-all/list-all.service';
 
 @Module({
   controllers: [SurveyController],
   imports: [TypeOrmModule.forFeature([Survey, User, UserVote])],
-  providers: [CreateSurveyService, VoteSurveyService, ListTredingService, ResultByIdService],
+  providers: [CreateSurveyService, VoteSurveyService, ListTredingService, ResultByIdService, ListAllService],
 })
 export class SurveyModule {}

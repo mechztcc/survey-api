@@ -13,6 +13,7 @@ import { VoteSurveyDto } from '../dto/vote-survey.dto';
 import { CreateSurveyService } from '../services/create-survey/create-survey.service';
 import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
 import { ListTredingService } from '../services/list-treding/list-treding.service';
+import { ResultByIdService } from '../services/result-by-id/result-by-id.service';
 
 @Controller('survey')
 export class SurveyController {
@@ -20,6 +21,7 @@ export class SurveyController {
     private readonly createSurveyService: CreateSurveyService,
     private readonly voteSurveyService: VoteSurveyService,
     private readonly listTrendingService: ListTredingService,
+    private readonly resultByIdService: ResultByIdService,
   ) {}
 
   @Post()
@@ -53,5 +55,10 @@ export class SurveyController {
     const { id } = headers.user;
 
     return await this.listTrendingService.execute(id);
+  }
+
+  @Get('/:id/info')
+  async infoBySurvey(@Param('id') id: string) {
+    return await this.resultByIdService.execute(Number(id));
   }
 }

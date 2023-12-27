@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './modules/users/users.module';
+import { SeedsModule } from './core/seeds/seeds.module';
 import { User } from './modules/users/entities/user.entity';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { User } from './modules/users/entities/user.entity';
       synchronize: false,
     }),
     UsersModule,
+    SeedsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

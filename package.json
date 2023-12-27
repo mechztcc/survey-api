@@ -23,16 +23,17 @@
     "migrationrevert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -- -d /home/alberto-busy/dev/survey-api/datasource.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1",
+    "@nestjs/typeorm": "^10.0.1",
     "dotenv": "^16.3.1",
     "pg": "^8.11.3",
-    "typeorm": "^0.3.17",
-    "@nestjs/typeorm": "^10.0.1",
-    "ts-node-dev": "^2.0.0"
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

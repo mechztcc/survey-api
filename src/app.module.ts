@@ -6,6 +6,7 @@ import { SeedsModule } from './core/seeds/seeds.module';
 import { User } from './modules/users/entities/user.entity';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { SurveyModule } from './modules/survey/survey.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './modules/auth/auth.module';
     UsersModule,
     SeedsModule,
     AuthModule,
+    SurveyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

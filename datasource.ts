@@ -10,7 +10,7 @@ const data = new DataSource({
   database: process.env.DATABASE,
   entities: [__dirname + '/src/modules/**/entities/**.ts'],
   migrations: [__dirname + '/src/core/migrations/**.ts'],
-  migrationsRun: false,
+  migrationsRun: true,
 });
 
 export default data;

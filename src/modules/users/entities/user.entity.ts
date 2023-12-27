@@ -1,3 +1,4 @@
+import { Survey } from '../../survey/entities/survey.entity';
 import {
   Column,
   CreateDateColumn,
@@ -23,6 +24,9 @@ export class User {
 
   @Column({ nullable: false })
   password: string;
+
+  @OneToMany(() => Survey, (survey) => survey.user)
+  surveys: Survey[];
 
   @CreateDateColumn()
   created_at?: Date;

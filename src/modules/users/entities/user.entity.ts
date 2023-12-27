@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserVote } from './user-vote.entity';
 
 @Entity()
 export class User {
@@ -27,6 +28,9 @@ export class User {
 
   @OneToMany(() => Survey, (survey) => survey.user)
   surveys: Survey[];
+  
+  @OneToMany(() => UserVote, (userVote) => userVote.user)
+  userVote: UserVote[];
 
   @CreateDateColumn()
   created_at?: Date;

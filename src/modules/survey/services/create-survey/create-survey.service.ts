@@ -23,13 +23,14 @@ export class CreateSurveyService {
     const userExists = await this.usersRepository.findOne({
       where: { id },
     });
-
     if (!userExists) {
       throw new NotFoundException('Provided user has not found.');
     }
+    
     const survey = this.surveysRepository.create({
       expires_at: data.expiresAt,
       question: data.question,
+      votes: 0,
       user: { id: userExists.id },
     });
 

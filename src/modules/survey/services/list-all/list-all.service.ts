@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Survey } from '../../entities/survey.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MoreThanOrEqual } from 'typeorm';
 
 interface IRequest {
   page: number;
   take: number;
+  status: 'opened' | 'closed';
+  votes: number;
 }
 
 @Injectable()
@@ -15,7 +18,7 @@ export class ListAllService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  async execute({ page, take }: IRequest) {
+  async execute({ page, take, status, votes }: IRequest) {
     if (page < 1) {
       page = 1;
     }
@@ -24,7 +27,7 @@ export class ListAllService {
     const [surveys, _] = await this.surveysRepository.findAndCount({
       take,
       skip,
-      where: { status: 'opened' },
+      where: { status, votes: MoreThanOrEqual(votes) },
     });
 
     const totalSurveys = await this.surveysRepository.count();

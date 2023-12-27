@@ -71,11 +71,15 @@ export class SurveyController {
     const params = {
       page: query['page'] ?? 1,
       take: query['take'] ?? 10,
+      status: query['status'] ?? 'opened',
+      votes: query['votes'] ?? 0,
     };
-    
+
     return await this.listAllService.execute({
       page: Number(params.page),
       take: Number(params.take),
+      status: params.status,
+      votes: params.votes,
     });
   }
 }

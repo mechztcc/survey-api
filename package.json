@@ -18,9 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migration": "ts-node-dev ./node_modules/typeorm/cli.js migration:generate -- -d /home/alberto-busy/dev/survey-api/datasource.ts",
+    "migration:generate": "ts-node-dev ./node_modules/typeorm/cli.js migration:generate -- -d /home/alberto-busy/dev/survey-api/datasource.ts",
     "migrate": "ts-node-dev ./node_modules/typeorm/cli.js migration:run -- -d /home/alberto-busy/dev/survey-api/datasource.ts",
-    "migrationrevert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -- -d /home/alberto-busy/dev/survey-api/datasource.ts"
+    "migration:revert": "ts-node-dev ./node_modules/typeorm/cli.js migration:revert -- -d /home/alberto-busy/dev/survey-api/datasource.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",

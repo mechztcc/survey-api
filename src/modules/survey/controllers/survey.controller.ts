@@ -1,23 +1,25 @@
 import {
   Body,
   Controller,
+  Get,
   Headers,
   Param,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateSurveyDto } from '../dto/create-survey.dto';
-import { CreateSurveyService } from '../services/create-survey/create-survey.service';
 import { AuthorizationInterceptor } from 'src/core/interceptors/authorization/authorization.interceptor';
-import { VoteAnswer } from 'src/modules/users/entities/user-vote.entity';
-import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
+import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { VoteSurveyDto } from '../dto/vote-survey.dto';
+import { CreateSurveyService } from '../services/create-survey/create-survey.service';
+import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
+import { ListTredingService } from '../services/list-treding/list-treding.service';
 
 @Controller('survey')
 export class SurveyController {
   constructor(
     private readonly createSurveyService: CreateSurveyService,
     private readonly voteSurveyService: VoteSurveyService,
+    private readonly listTrendingService: ListTredingService,
   ) {}
 
   @Post()
@@ -43,5 +45,11 @@ export class SurveyController {
       userId: id,
       surveyId: Number(surveyId),
     });
+  }
+
+  @Get()
+  @UseInterceptors(AuthorizationInterceptor)
+  async listTrending() {
+    return await this.listTrendingService.execute();
   }
 }

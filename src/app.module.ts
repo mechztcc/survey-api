@@ -9,6 +9,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SurveyModule } from './modules/survey/survey.module';
 import { Survey } from './modules/survey/entities/survey.entity';
 import { UserVote } from './modules/users/entities/user-vote.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './core/services/tasks/tasks.service';
 
 @Module({
   imports: [
@@ -22,12 +24,14 @@ import { UserVote } from './modules/users/entities/user-vote.entity';
       entities: [User, Survey, UserVote],
       synchronize: false,
     }),
+    TypeOrmModule.forFeature([Survey]),
     UsersModule,
     SeedsModule,
     AuthModule,
     SurveyModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TasksService],
 })
 export class AppModule {}

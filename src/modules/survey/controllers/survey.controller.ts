@@ -73,6 +73,7 @@ export class SurveyController {
       take: query['take'] ?? 10,
       status: query['status'] ?? 'opened',
       votes: query['votes'] ?? 0,
+      order: query['order'] ?? 'ASC',
     };
 
     return await this.listAllService.execute({
@@ -80,6 +81,7 @@ export class SurveyController {
       take: Number(params.take),
       status: params.status,
       votes: params.votes,
+      order: params.order,
     });
   }
 }

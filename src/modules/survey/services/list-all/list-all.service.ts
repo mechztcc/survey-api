@@ -9,6 +9,7 @@ interface IRequest {
   take: number;
   status: 'opened' | 'closed';
   votes: number;
+  order: 'ASC' | 'DESC'
 }
 
 @Injectable()
@@ -18,7 +19,7 @@ export class ListAllService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  async execute({ page, take, status, votes }: IRequest) {
+  async execute({ page, take, status, votes, order }: IRequest) {
     if (page < 1) {
       page = 1;
     }
@@ -28,6 +29,7 @@ export class ListAllService {
       take,
       skip,
       where: { status, votes: MoreThanOrEqual(votes) },
+      order: { votes: order }
     });
 
     const totalSurveys = await this.surveysRepository.count();

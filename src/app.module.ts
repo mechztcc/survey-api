@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { SeedsModule } from './core/seeds/seeds.module';
 import { User } from './modules/users/entities/user.entity';
 import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/users/users.module';
     }),
     UsersModule,
     SeedsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,11 +10,20 @@ export class ListTredingService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  async execute() {
-    return await this.surveysRepository.find({
-      where: { status: 'opened' },
-      order: { votes: 'DESC' },
-      take: 3,
-    });
+  async execute(userId: number) {
+    const surveysWithUserVote = await this.surveysRepository
+      .createQueryBuilder('survey')
+      .leftJoinAndSelect(
+        'survey.userVote',
+        'userVote',
+        'userVote.user = :userId',
+        { userId },
+      )
+      .where('survey.status = :status', { status: 'opened' })
+      .orderBy('survey.votes', 'DESC')
+      .take(3)
+      .getMany();
+
+    return surveysWithUserVote;
   }
 }

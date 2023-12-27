@@ -49,7 +49,9 @@ export class SurveyController {
 
   @Get()
   @UseInterceptors(AuthorizationInterceptor)
-  async listTrending() {
-    return await this.listTrendingService.execute();
+  async listTrending(@Headers() headers) {
+    const { id } = headers.user;
+
+    return await this.listTrendingService.execute(id);
   }
 }

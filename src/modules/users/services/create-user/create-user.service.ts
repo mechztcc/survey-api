@@ -34,6 +34,13 @@ export class CreateUserService {
       throw new UnprocessableEntityException('Provided Document is invalid.');
     }
 
+    const documentExists = await this.usersRepository.findOne({
+      where: { document },
+    });
+    if (documentExists) {
+      throw new ConflictException('Provided Document is already registered.');
+    }
+
     const hashedPass = await bcrypt.hash(password, 10);
 
     const user = this.usersRepository.create({

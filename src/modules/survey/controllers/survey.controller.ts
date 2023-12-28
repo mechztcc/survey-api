@@ -72,7 +72,10 @@ export class SurveyController {
   }
 
   @Get('/list')
-  async listAll(@Query() query) {
+  @UseInterceptors(AuthorizationInterceptor)
+  async listAll(@Query() query, @Headers() headers) {
+    const { id } = headers.user;
+
     const params = {
       page: query['page'] ?? 1,
       take: query['take'] ?? 10,
@@ -87,6 +90,7 @@ export class SurveyController {
       status: params.status,
       votes: params.votes,
       order: params.order,
+      userId: id
     });
   }
 }

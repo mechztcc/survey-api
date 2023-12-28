@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Survey } from '../../entities/survey.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MoreThanOrEqual } from 'typeorm';
+import { Repository } from 'typeorm';
+import { Survey } from '../../entities/survey.entity';
 
 interface IRequest {
   page: number;
   take: number;
   status: 'opened' | 'closed';
   votes: number;
-  order: 'ASC' | 'DESC'
+  order: 'ASC' | 'DESC';
+  userId: number;
 }
 
 @Injectable()
@@ -19,18 +19,28 @@ export class ListAllService {
     private surveysRepository: Repository<Survey>,
   ) {}
 
-  async execute({ page, take, status, votes, order }: IRequest) {
+  async execute({ page, take, status, votes, order, userId }: IRequest) {
     if (page < 1) {
       page = 1;
     }
     const skip = page * take - take;
 
-    const [surveys, _] = await this.surveysRepository.findAndCount({
-      take,
-      skip,
-      where: { status, votes: MoreThanOrEqual(votes) },
-      order: { votes: order }
-    });
+    const [surveys, _] = await this.surveysRepository
+      .createQueryBuilder('survey')
+      .leftJoinAndSelect(
+        'survey.userVote',
+        'userVote',
+        'userVote.user = :userId',
+        { userId },
+      )
+      .where('survey.status = :status AND survey.votes >= :votes', {
+        status,
+        votes,
+      })
+      .orderBy('survey.votes', order)
+      .take(take)
+      .skip(skip)
+      .getManyAndCount();
 
     const totalSurveys = await this.surveysRepository.count();
     const totalPages = Math.ceil(totalSurveys / take);

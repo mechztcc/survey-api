@@ -19,13 +19,12 @@ export class TasksService {
       .createQueryBuilder()
       .update(Survey)
       .set({ status: 'closed' })
-      .where('status = :status AND expires_at > :currentDateTime', {
+      .where('status = :status AND expires_at < :currentDateTime', {
         status: 'opened',
-        currentDateTime: new Date(),
+        currentDateTime: new Date().toISOString(),
       })
       .execute();
       
       this.logger.debug(`Updated ${surveys.affected} expired surveys`)
-      
   }
 }

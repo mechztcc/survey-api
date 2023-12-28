@@ -9,14 +9,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthorizationInterceptor } from 'src/core/interceptors/authorization/authorization.interceptor';
+import { ListTredingNoAuthService } from 'src/modules/survey/services/list-treding-no-auth/list-treding-no-auth.service';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { VoteSurveyDto } from '../dto/vote-survey.dto';
 import { CreateSurveyService } from '../services/create-survey/create-survey.service';
-import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
+import { ListAllService } from '../services/list-all/list-all.service';
 import { ListTredingService } from '../services/list-treding/list-treding.service';
 import { ResultByIdService } from '../services/result-by-id/result-by-id.service';
-import { ListAllService } from '../services/list-all/list-all.service';
-import { log } from 'console';
+import { VoteSurveyService } from '../services/vote-survey/vote-survey.service';
 
 @Controller('survey')
 export class SurveyController {
@@ -24,6 +24,7 @@ export class SurveyController {
     private readonly createSurveyService: CreateSurveyService,
     private readonly voteSurveyService: VoteSurveyService,
     private readonly listTrendingService: ListTredingService,
+    private readonly listTrendingNoAuthService: ListTredingNoAuthService,
     private readonly resultByIdService: ResultByIdService,
     private readonly listAllService: ListAllService,
   ) {}
@@ -53,12 +54,16 @@ export class SurveyController {
     });
   }
 
-  @Get()
+  @Get('/trending/auth')
   @UseInterceptors(AuthorizationInterceptor)
   async listTrending(@Headers() headers) {
     const { id } = headers.user;
-
     return await this.listTrendingService.execute(id);
+  }
+
+  @Get('/trending')
+  async listTrendingNoAuth() {
+    return await this.listTrendingNoAuthService.execute();
   }
 
   @Get('/:id/info')

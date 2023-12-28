@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { UserVote } from './user-vote.entity';
 
+export type Profile = 'admin' | 'guest';
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -23,12 +25,19 @@ export class User {
   @Column({ nullable: false })
   document: string;
 
+  @Column({
+    type: 'enum',
+    enum: ['admin', 'guest'],
+    default: 'admin',
+  })
+  profile: Profile;
+
   @Column({ nullable: false })
   password: string;
 
   @OneToMany(() => Survey, (survey) => survey.user)
   surveys: Survey[];
-  
+
   @OneToMany(() => UserVote, (userVote) => userVote.user)
   userVote: UserVote[];
 

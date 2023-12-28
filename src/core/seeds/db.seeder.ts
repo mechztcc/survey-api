@@ -18,6 +18,7 @@ export class DbSeeder {
         email: faker.internet.email(),
         name: faker.person.fullName(),
         password: faker.internet.password(),
+        profile: 'guest',
         surveys: [],
         userVote: [],
       });

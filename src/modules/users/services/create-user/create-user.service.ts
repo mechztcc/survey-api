@@ -23,7 +23,10 @@ export class CreateUserService {
     document,
     name,
     password,
+    profile,
   }: CreateUserDto): Promise<any> {
+    console.log(profile);
+    
     const userExists = await this.usersRepository.findOne({ where: { email } });
 
     if (userExists) {
@@ -48,6 +51,7 @@ export class CreateUserService {
       document,
       name,
       password: hashedPass,
+      profile,
     });
     await this.usersRepository.save(user);
 

@@ -1,16 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserVote } from 'src/modules/users/entities/user-vote.entity';
 import { Repository } from 'typeorm';
+import { Survey } from '../../entities/survey.entity';
 
 @Injectable()
 export class ResultByIdService {
   constructor(
     @InjectRepository(UserVote)
     private votesRepository: Repository<UserVote>,
+
+    @InjectRepository(Survey)
+    private surveysRepository: Repository<Survey>,
   ) {}
 
   async execute(id: number) {
+    const surveyExists = await this.surveysRepository.findOne({
+      where: { id },
+    });
+
+    if (!surveyExists) {
+      throw new NotFoundException('Provided survey has not found');
+    }
     const surveyVotes = await this.votesRepository
       .createQueryBuilder('userVote')
       .select('survey.id', 'surveyId')

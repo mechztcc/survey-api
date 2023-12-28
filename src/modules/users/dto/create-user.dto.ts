@@ -19,6 +19,11 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsIn(['admin', 'guest'])
+  @ApiProperty({
+    required: true,
+    type: 'string',
+    enum: ['admin', 'guest'],
+  })
   profile: 'admin' | 'guest';
 
   @IsNotEmpty()

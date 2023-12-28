@@ -25,8 +25,6 @@ export class CreateUserService {
     password,
     profile,
   }: CreateUserDto): Promise<any> {
-    console.log(profile);
-    
     const userExists = await this.usersRepository.findOne({ where: { email } });
 
     if (userExists) {

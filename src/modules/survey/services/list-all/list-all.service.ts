@@ -25,7 +25,7 @@ export class ListAllService {
     }
     const skip = page * take - take;
 
-    const [surveys, _] = await this.surveysRepository
+    const [surveys, total] = await this.surveysRepository
       .createQueryBuilder('survey')
       .leftJoinAndSelect(
         'survey.userVote',
@@ -43,13 +43,13 @@ export class ListAllService {
       .getManyAndCount();
 
     const totalSurveys = await this.surveysRepository.count();
-    const totalPages = Math.ceil(totalSurveys / take);
+    const totalPages = Math.ceil(total / take);
     const prevPage = page > 1 ? page - 1 : null;
     const nextPage = page < totalPages ? page + 1 : null;
 
     return {
       data: surveys,
-      totalItems: totalSurveys,
+      totalItems: total,
       totalPages,
       prevPage,
       nextPage,

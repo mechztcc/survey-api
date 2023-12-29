@@ -36,5 +36,6 @@ This project allows the user to register, vote, and collect poll results. Only r
 ``docker-compose up``
 
 ## How to Use
+[MIGRATIONS] To run the migrations just run the command ``npm run migrate``
 
 Once the project is running, you can check the documentation at the endpoint /api.

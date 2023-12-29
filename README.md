@@ -39,3 +39,10 @@ This project allows the user to register, vote, and collect poll results. Only r
 [MIGRATIONS] To run the migrations just run the command ``npm run migrate``
 
 Once the project is running, you can check the documentation at the endpoint /api.
+
+## Common mistake
+ERROR [Scheduler] QueryFailedError: relation "survey" does not exist
+
+Just run the command ``npm run migrate``
+
+

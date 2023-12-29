@@ -46,7 +46,6 @@ export class ResultByIdService {
         'noPercentage',
       )
       .leftJoin('userVote.survey', 'survey')
-      .where('survey.status = :status', { status: 'opened' })
       .andWhere('survey.id = :surveyId', { surveyId: id }) // Filtra pelo ID da Survey
       .groupBy('survey.id')
       .getRawOne();
